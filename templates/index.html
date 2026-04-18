@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GEO Smart Downloader</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:#f2f2f2;
+    text-align:center;
+    padding-top:50px;
+}
+
+.box{
+    background:white;
+    width:550px;
+    margin:auto;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
+}
+
+input{
+    width:80%;
+    padding:12px;
+    font-size:18px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+button{
+    margin-top:15px;
+    padding:12px 30px;
+    font-size:18px;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+.result{
+    text-align:left;
+    margin-top:25px;
+    padding-left:35px;
+    font-size:20px;
+    line-height:2;
+}
+
+.green{color:green;}
+.red{color:red;}
+
+.linkbtn{
+    display:block;
+    width:220px;
+    text-align:center;
+    margin-top:12px;
+    padding:10px;
+    background:#28a745;
+    color:white;
+    text-decoration:none;
+    border-radius:6px;
+}
+
+.linkbtn:hover{
+    background:#218838;
+}
+</style>
+
+</head>
+<body>
+
+<div class="box">
+
+<h1>GEO Smart Downloader</h1>
+
+<form method="POST" action="/search">
+<input type="text" name="gseid" placeholder="Enter GSE ID" required>
+<br>
+<button type="submit">Search</button>
+</form>
+
+{% if gseid %}
+<div class="result">
+
+<h2>{{ gseid }} Results</h2>
+
+<p class="{{ 'green' if counts else 'red' }}">
+{{ '✅ Counts file found' if counts else '❌ Counts file not found' }}
+</p>
+
+<p class="{{ 'green' if meta else 'red' }}">
+{{ '✅ Metadata file found' if meta else '❌ Metadata file not found' }}
+</p>
+
+<p class="{{ 'green' if raw else 'red' }}">
+{{ '✅ Raw file found' if raw else '❌ Raw file not found' }}
+</p>
+
+{% if counts %}
+<a class="linkbtn" href="{{ counts }}" target="_blank">Download Counts File</a>
+{% endif %}
+
+{% if meta %}
+<a class="linkbtn" href="{{ meta }}" target="_blank">Download Metadata File</a>
+{% endif %}
+
+{% if raw %}
+<a class="linkbtn" href="{{ raw }}" target="_blank">Download Raw File</a>
+{% endif %}
+
+<a class="linkbtn" href="{{ url }}" target="_blank">Open GEO Folder</a>
+
+</div>
+{% endif %}
+
+</div>
+
+</body>
+</html>
